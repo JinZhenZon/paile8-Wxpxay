@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>paile</title>
+    <!-- <link rel="stylesheet" href="./public.css"> -->
+    <link rel="stylesheet" href="./swiper.css">
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <div id="bower" style = "background:#efefef">
+        <div id="comtiner">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide" v-for = "item in pageData.urlList">
+                        <img style = "width:100%;" :src="item" alt="图片丢失了">
+                    </div>
+                </div>
+           
+            </div>
+            <!-- 轮播图 -->
+            <div id="body"  style ="margin:0;">
+                <div style = "background:#fff; padding-top:0.35rem;padding-bottom:0.35rem;margin:-.1rem;;">
+                        <p class="shopTitle content" style = "font-weight:800">
+                                {{pageData.name}}
+                            </p>
+                            <p class="shopPrice content normal-font " style = "font-weight:800;color:#dd2525;font-size:0.9rem;line-height:2rem">
+                                ￥{{pageData.price}}
+                            </p>
+                            <p class="shopAddress  content" style = "font-size:0.5rem;font-weight:800;font-family: PingFangSC-Light, sans-serif;">{{pageData.location}}</p>
+                </div>
+                <div style = "margin-top:0.3rem;padding-top:0.1rem;padding-bottom:0.5rem;background:#fff;">
+                    <div>
+
+                            <div v-for = "(item,num) in pageData.cargoDescList" style = "margin-top:0.3rem;">
+                                    <div class="dataClick">
+                                        <p class=" specTitle content" style = "margin-top:0.3rem;">
+                                            {{item.title}}
+                                        </p>
+                                        <div class="radiosGroup Radio" style = "margin-top:0.3rem;">
+                                            <p v-for = "(i,index) in item.descList" @click = "click(num,index)">
+                                                {{i.desc}}
+                                            </p>
+                                        </div>
+                                    </div>
+                            <div style = "margin:0 auto;margin-top:0.6rem;height:1px;width:16rem;background:#f2f2f2"></div>
+                    </div>
+            </div>
+               
+                 
+
+                </div>
+                
+                <div style = "background:#fff;padding-top:0.3rem;padding-bottom:0.7rem;">
+                    <div class="top20 content" style="position: relative;">
+                        <p class="specTitle content">
+                            数量
+
+                        </p>
+                        <div style="position: absolute;right:0;bottom:-0.2rem;">
+                            <div class="goodnumbtn" @click="jian" style = "float:left;border-radius:50%;background:#efefef;width:1rem;margin:0;height:1rem;display:inline-block;text-align:center;">-</div>
+                            <div class="goodsnum" style="background:#fff;float:left;height:1rem;text-align:center;width:3rem;border-radius:0.5rem;" v-text = "inputNum"></div>
+                            <div class="goodnumbtn" @click="add"  style = "float:left;border-radius:50%;background:#efefef;width:1rem;margin:0;height:1rem;display:inline-block;text-align:center;">+</div>
+                        </div>
+                    </div>
+            </div>
+                <!-- <div class="top20">
+                    <hr>
+                    <div class="top20"></div>
+                    <p class="b specTitle content">
+                        配送方式
+                    </p>
+                    <div class="top20 radiosGroup sendRadio">
+                        <p>自取</p>
+                        <p>快递</p>
+                    </div> -->
+                </div>
+
+                <div style = " font-family: PingFangSC-Light, sans-serif;margin-top:0.25rem;padding-top:0.3rem;background:#fff;">
+                    <div class="top20"></div>
+                    <p class="specTitle content">
+                       商品详情
+                    </p>
+                    <div class="top20"></div>
+                    <div class="describe_content" v-for = "descItem in descArr" style = "font-size: 0;">
+                        <p v-if = "descItem.type == 1" style = "  font-family: PingFangSC-Light, sans-serif;color:#666;font-size:0.5rem;line-height:0.8rem;">
+                            {{descItem.content_desrc}}
+                        </p>
+                        <img  :src="descItem.img_url" style = "outline:0;margin:0;padding:0;border:0" v-if = "descItem.type ==2" alt="图片获取异常" width = "100%">
+                    </div>
+                    <div class="top20"></div>
+                    <hr>
+                </div>
+
+                <div style="position: fixed;bottom:0;left:50%;margin-left:-8rem;">
+                    <!-- <div class="shopBtn">
+                        店铺
+                    </div>
+                    <div class="shoucangBtn">
+                            收藏
+                        </div>
+                        <div class="telBtn">
+                                客服
+                            </div> -->
+                    <div class="buyBtn">
+                        购买
+                    </div>
+                </div>
+                <div style="width:16rem;height:3rem"></div>
+            </div>
+
+        </div>
+   
+</body>
+
+</html>
+<style>
+</style>
+<script src="./public.js"></script>
+<script src= "./vue.min.js"></script>
+<script src="./jquery-3.3.1.js"></script>
+<script src="./swiper.js"></script>
+<script src="./index.js"></script>
+<script>
+    const base_IP = '192.168.31.2'
+const base_port = '8080'
+    let app = new Vue({
+        el:"#bower",
+        data:{
+            pageData:{
+                name:"",
+                price:"",
+                cargoDescList:[],
+                urlList:[],
+            },
+            inputNum:1,
+            descArr:[],
+        },
+        methods:{
+   promiseAjax(url, data){
+                return new Promise((resolve, reject) => {
+                    $.ajax({
+                    type: 'POST',
+                    url,
+                    data,
+                    success: (res) => {
+                        resolve(res);
+                    },
+                    error: (err) => {
+                        reject(err);
+                    },
+                    dataType: 'json'
+                    });
+                })
+                },
+            createOrder() {
+         $.post(`http://${base_IP}:${base_port}/paile-service/api/orderHandler/createOrder`,data,function(data){
+                    console.log(data);
+                })
+            },
+
+
+
+
+            add(){
+             
+                this.inputNum=this.inputNum+ 1
+            },
+            jian(){
+                if(this.inputNum>0){
+                    this.inputNum = this.inputNum - 1;
+                }
+          
+            },
+            click(num,index){
+          
+               
+                $('.Radio').eq(num).find('p').removeClass('activeSize')  
+                $('.Radio').eq(num).find('p').eq(index).addClass('activeSize')    
+
+            },
+            Request(strName){
+                var strHref = window.location.href;
+                var intPos = strHref.indexOf("?");  
+              
+                var strRight = strHref.substr(intPos + 1);  
+                var arrTmp = strRight.split("&");
+                for(var i = 0; i < arrTmp.length; i++) {  
+                var arrTemp = arrTmp[i].split("=");  
+                if(arrTemp[0].toUpperCase() == strName.toUpperCase()) return arrTemp[1];  
+                }  
+                return "";  
+            }  
+        },
+        created(){
+    
+          
+            let reData = {
+                    cargoId :1,
+                    userId :15,
+                    type:1,
+                }
+                //ajax
+                this.promiseAjax(`http://${base_IP}:${base_port}/paile-service/api/cargoHandler/getCargoById`,reData).then((data)=>{
+                
+                    this.pageData = data.datas;
+                    
+                    this.promiseAjax(`http://${base_IP}:${base_port}/paile-service/api/cargoHandler/getCargoDetailsByCargoId`,{
+                        'cargoId':reData.cargoId,
+                    }).then((data)=>{
+                        this.descArr = data.datas;
+                        setTimeout(()=>{
+                            var mySwiper = new Swiper('.swiper-container', {
+                                loop: true,
+                                autoplay: 3000,
+                                paginationType: 'fraction',
+                            });
+                        },10)
+                    }).catch(()=>{
+                        alert('获取失败')
+                    })
+                
+
+                })
+        }
+    })
+</script>
+
+<script type="text/javascript">
+   
+
+   
+   function requestPayment(){
+	$.ajax({
+		url:"/paile-pay/wxpayment/requestPayment.do?openid=",
+		type: "POST",
+		dataType: "json",
+		timeout: "60000",
+		data:{},
+		error: function(){
+		},
+		success: function(result){
+			console.log(JSON.stringify(result));
+			WeixinJSBridge.invoke(
+				'getBrandWCPayRequest',{ 
+				    "appId" :     result.appId, 
+				    "timeStamp" : result.timeStamp, 
+				    "nonceStr" :  result.nonceStr, 
+				    "package":    result.packages, 
+				    "signType" :  result.signType, 
+				    "paySign" :   result.paySign
+		        },
+		        function(res){ 
+				    if(res.err_msg == "get_brand_wcpay_request:ok"){
+				    	 confirmPayment(0); 
+				    }
+				    else if(res.err_msg == "get_brand_wcpay_request:cancel"){
+				    	cancelPayment();
+				    }
+				    else{
+				    	failPayment();
+					}
+		  		});
+		}
+	});
+}
+
+function failPayment(){
+  $.ajax({
+		url:"/wxpayment/failPayment.do",
+		type: "POST",
+		dataType: "json",
+		timeout: "60000",
+		data:{},
+		
+		error: function(){
+			//不做任何处理
+		},
+		success: function(result){
+			alert("交易失败，请联系客服");
+		}
+	});
+}
+  
+function cancelPayment(){
+  $.ajax({
+		url:"/wxpayment/cancelPayment.do",
+		type: "POST",
+		dataType: "json",
+		timeout: "60000",
+		data:{},
+		error: function(){
+			//不做任何处理
+		},
+		success: function(result){
+			//alert(JSON.stringify(result));
+			if(result.code == 0){
+				//去未支付订单中
+				window.location.href="/locallife/order?type=1";
+				//return;
+			}
+			else{
+				alert("交易失败，请联系客服");
+			}
+		}
+	});
+}
+  
+function confirmPayment(retryTimes){
+	if(retryTimes>=5){
+		showPopMsg("支付状态刷新失败，请到订单详情中查看支付进度。",3000);
+		return;
+	}
+	$.ajax({
+ 		url:"/wxpayment/confirmPayment.do",
+		type: "POST",
+		dataType: "json",
+		timeout: "60000",
+		data:{},
+		
+		error: function(){//超时视为交易失败
+			alert("交易失败，请联系客服");
+		},
+		success: function(data){
+			if(data.code ==0){
+				if(data.status == 3){//此状态为支付成功状态
+					showPopMsg("支付成功",3000);
+					window.location.href="/order/detail?orderid=&status=1";
+				}
+				else{
+					setTimeout("confirmPayment("+(retryTimes+1)+")",500);		
+				}
+			}
+			else{
+				alert("交易失败，请联系客服");
+			}
+		}
+	});
+}
+ 
+
+
+ 
+</script>

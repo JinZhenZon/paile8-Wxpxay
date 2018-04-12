@@ -1,0 +1,180 @@
+    * {
+        margin: 0;
+        padding: 0;
+        
+    }
+
+    body {
+        font-size: 62.5%;
+    }
+    .swiper-slide {
+   
+        color: #fff;
+        
+        text-align: center;
+    }
+
+    .top20 {
+        margin-top: 0.5rem
+    }
+
+    .shopTitle {
+        font-size: 0.6rem;
+        line-height: 0.8rem;
+        font-weight: bold;
+        font-family: PingFangSC-Light, sans-serif;
+    }
+
+    #body {
+        margin: 0.5rem auto;
+    }
+
+    .cf00 {
+        color: #f00;
+    }
+
+    .normal-font {
+        font-size: 0.5rem;
+        line-height: 1rem;
+        font-family: PingFangSC-Light, sans-serif;
+    }
+
+    .b {
+        font-weight: bold;
+    }
+
+    .content {
+        width: 15rem;
+        margin: 0 auto;
+        font-family: PingFangSC-Light, sans-serif;
+    }
+
+    .state-line {
+        height: 0.9rem;
+        line-height: 0.9rem;
+        font-size: 0.7rem;
+        color: #aaa;
+        background: #efefef;
+    }
+
+    .shopAddress {
+        color: #aaa;
+        line-height: 0.5rem;
+    }
+
+    .specTitle {
+        /* font-weight: 800; */
+        font-size: 0.6rem;
+        line-height: 0.8rem;
+    }
+
+    .radiosGroup p {
+        display: inline-block;
+        margin-left: 0.5rem;
+        text-align: center;
+        background:#efefef;
+        font-size: 0.5rem;
+        line-height: 1rem;
+   
+        width: 3rem;
+        border-radius:0.2rem;
+    
+    }
+
+    .radiosGroup .activeSize {
+       background:#fa6206;
+       color:#fff;
+    }
+
+
+    #bower {
+        width: 100%;
+        max-width: 750px;
+        height: 100%;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .shopBtn,
+    .shoucangBtn,
+    .telBtn {
+        width: 3rem;
+        height: 1.5rem;
+        font-size: 0.5rem;
+        text-align: center;
+        border-right: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        /* border-style: outset; */
+        box-sizing: border-box;
+        line-height: 1.5rem;
+        float: left;
+        background: #efefef;
+        background: -webkit-gradient(linear, left top, left bottom, from(#ecc), to(#eee));
+        background: -moz-linear-gradient(top, #ecc, #eee);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ecc', endColorstr='#eee');
+        moz-user-select: -moz-none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .buyBtn {
+        width: 16rem;
+        height: 2rem;
+        line-height: 2rem;
+        font-size: 0.7rem;
+        background: #FF8604;
+        display: inline-block;
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+        /* color: #d7d7d7;  */
+        background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+        background: -moz-linear-gradient(top, #faa51a, #f47a20);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+        text-align: center;
+        moz-user-select: -moz-none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .share_title {
+        font-size: 0.5rem;
+        line-height: 0.75rem;
+        color: #333;
+        font-weight: 800;
+        display: inline-block;
+        float: left;
+        color: #ccc;
+    }
+
+    .share_contine {
+        font-size: 0.5rem;
+        line-height: 0.75rem;
+        color: #f00;
+        display: inline-block;
+        float: right;
+    }
+
+    .share::after {
+        display: block;
+        content: "";
+        clear: both;
+    }
+
+    .describe_content {
+        width: 95%;
+        margin: 0 auto;
+        color: #aaa;
+        font-size: 0.55rem;
+    }
+
+
+
